@@ -1,0 +1,11 @@
+--- Cargo.toml
++++ Cargo.toml
+@@ -56,4 +56,8 @@
+ debug = true
+  
+ [workspace]
+ members = ["caching", "fsm", "generate", "macros", "oneshot"]
++ 
++[patch.crates-io]
++futures = { path = "../futures-rs/futures" }
++ 
