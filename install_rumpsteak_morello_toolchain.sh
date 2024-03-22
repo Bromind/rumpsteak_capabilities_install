@@ -47,8 +47,8 @@ install_rumpsteak() {
 
 #1 install path
 prepare_cargo_patch() {
-	# Assumes the path does *not* contains "=", might cause issues
-	sed "s=INSTALL_DIR=$INSTALL_DIR=" Cargo.toml.patch.template > Cargo.toml.patch
+	INSTALL_DIR_SUBST="$(echo $INSTALL_DIR | sed "s,/,\\\\/,g")$"
+	sed "s/INSTALL_DIR/$INSTALL_DIR_SUBST/" Cargo.toml.patch.template > Cargo.toml.patch
 }
 
 init
