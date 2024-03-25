@@ -1,5 +1,22 @@
 --- Cargo.toml
 +++ Cargo.toml
+@@ -31,14 +31,14 @@
+ harness = false
+ 
+ [dependencies]
+-futures = "0.3"
++futures = {version = "0.4.0-alpha.0", path = "../../Programmes_test/futures-rs/futures"}
+ rumpsteak-fsm = { path = "fsm", version = "0.1", optional = true }
+ rumpsteak-macros = { path = "macros", version = "0.1" }
+ thiserror = "1.0"
+ 
+ [dev-dependencies]
+ criterion = "0.3"
+-futures = { version = "0.3", features = ["thread-pool"] }
++futures = {version = "0.4.0-alpha.0", path = "../../Programmes_test/futures-rs/futures", features = ["thread-pool"]}
+ num-complex = "0.4"
+ rand = { version = "0.8" }
+ rumpsteak-fsm = { path = "fsm", features = ["subtyping"] }
 @@ -56,4 +56,8 @@
  debug = true
   

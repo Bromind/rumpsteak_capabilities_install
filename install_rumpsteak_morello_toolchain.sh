@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x
-
 init() {
 	clear
 }
@@ -39,21 +37,49 @@ install_rumpsteak() {
 	cd "$INSTALL_DIR"
 	git clone https://github.com/zakcutner/rumpsteak
 	cd rumpsteak
-	echo "$PWD"
-	cat "../../rumpsteak.patch"
 	patch Cargo.toml < ../../rumpsteak.patch
 	cd "$INIT_PATH"
 }
 
 #1 install path
 prepare_cargo_patch() {
-	INSTALL_DIR_SUBST="$(echo $INSTALL_DIR | sed "s,/,\\\\/,g")$"
+	INSTALL_DIR_SUBST="$(echo $INSTALL_DIR | sed "s,/,\\\\/,g")"
 	sed "s/INSTALL_DIR/$INSTALL_DIR_SUBST/" Cargo.toml.patch.template > Cargo.toml.patch
 }
 
-init
-get_install_path
-create_install_dir "$INSTALL_DIR" || (echo "abort install"; exit -1)
-install_futures
-install_rumpsteak
-prepare_cargo_patch
+install() {
+	init
+	get_install_path
+	create_install_dir "$INSTALL_DIR" || (echo "abort install"; exit -1)
+	install_futures
+	install_rumpsteak
+	prepare_cargo_patch
+}
+
+#1 command
+help() {
+	printf "Usage: $1 [CMD]\n\n"
+	printf "CMD available:\n"
+	printf "\tinstall: \tinstalls everything (default)\n"
+	printf "\tclean: \t\tremoves generated files\n"
+	printf "\thelp: \t\tprints this help\n\n"
+}
+
+clean() {
+	rm Cargo.toml.patch
+	rm rumpsteak_morello -rf
+}
+
+if test "$#" -gt 0
+then
+	case "$1" in
+	install)
+		install ;;
+	clean)
+		clean ;;
+	*)
+		help "$0" ;;
+	esac
+else
+	install
+fi
