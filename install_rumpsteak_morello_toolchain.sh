@@ -39,10 +39,10 @@ prepare_rumpsteak_patch() {
 }
 
 install_rumpsteak() {
+	prepare_rumpsteak_patch
 	cd "$INSTALL_DIR"
 	git clone https://github.com/zakcutner/rumpsteak
 	cd rumpsteak
-	prepare_rumpsteak_patch
 	patch Cargo.toml < ../../rumpsteak.patch
 	cd "$INIT_PATH"
 }
