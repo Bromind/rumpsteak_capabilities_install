@@ -33,15 +33,20 @@ install_futures() {
 	cd "$INIT_PATH"
 }
 
+prepare_rumpsteak_patch() {
+	INSTALL_DIR_SUBST="$(echo $INSTALL_DIR | sed "s,/,\\\\/,g")"
+	sed "s/INSTALL_DIR/$INSTALL_DIR_SUBST/" rumpsteak.patch.template > rumpsteak.patch
+}
+
 install_rumpsteak() {
 	cd "$INSTALL_DIR"
 	git clone https://github.com/zakcutner/rumpsteak
 	cd rumpsteak
+	prepare_rumpsteak_patch
 	patch Cargo.toml < ../../rumpsteak.patch
 	cd "$INIT_PATH"
 }
 
-#1 install path
 prepare_cargo_patch() {
 	INSTALL_DIR_SUBST="$(echo $INSTALL_DIR | sed "s,/,\\\\/,g")"
 	sed "s/INSTALL_DIR/$INSTALL_DIR_SUBST/" Cargo.toml.patch.template > Cargo.toml.patch
