@@ -1,6 +1,6 @@
---- Cargo.toml	2024-03-22 16:50:15.209788845 +0000
-+++ Cargo_mod.toml	2024-03-22 16:51:22.614895289 +0000
-@@ -6,3 +6,12 @@
+--- Cargo.toml
++++ Cargo.toml
+@@ -6,3 +6,10 @@
  # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
  
  [dependencies]
@@ -11,4 +11,3 @@
 +[patch.crates-io]
 +futures-util = { path = "INSTALL_DIR/futures-rs/futures-util" }
 +futures = { path = "INSTALL_DIR/futures-rs/futures" }
-+
